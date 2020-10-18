@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 from Panopto import Panopto
 from Common import Common
@@ -25,7 +26,7 @@ def start_parsing(s):
             video_url = video["id"]
 
             if video_url not in existing_guids:
-                print("Adding new video: [" + class_name + "] " + video["title"])
+                print(datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ": Adding new video: [" + class_name + "] " + video["title"])
                 crawl_job = Common.make_crawl_job(s, video, class_name)
                 Common.save_crawl_job(crawl_job, video_url, class_name)
                 Common.save_guid(class_name, video_url)
