@@ -1,0 +1,50 @@
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>PanoptoSync</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/path/to/python</string>
+        <string>sync.py</string>
+    </array>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PANOPTOSYNC_CANVAS_USERNAME</key>
+        <string><![CDATA[]]></string>
+        <key>PANOPTOSYNC_CANVAS_PASSWORD</key>
+        <string><![CDATA[]]></string>
+        <key>PANOPTOSYNC_DOWNLOAD_FOLDER</key>
+        <string><![CDATA[/path/to/download/folder/]]></string>
+        <key>PANOPTOSYNC_CS390_FEED</key>
+        <string><![CDATA[]]></string>
+        <key>PANOPTOSYNC_CS453_FEED</key>
+        <string><![CDATA[]]></string>
+        <key>PANOPTOSYNC_CS488_FEED</key>
+        <string><![CDATA[]]></string>
+        <key>PANOPTOSYNC_CS490A_FEED</key>
+        <string><![CDATA[]]></string>
+        <key>PANOPTOSYNC_CS490B_FEED</key>
+        <string><![CDATA[]]></string>
+        <key>PANOPTOSYNC_CS499_FEED</key>
+        <string><![CDATA[]]></string>
+        <key>PANOPTOSYNC_SSO_URL</key>
+        <string><![CDATA[]]></string>
+        <key>PANOPTOSYNC_PANOPTO_DOMAIN</key>
+        <string><![CDATA[org.hosted.panopto.com]]></string>
+    </dict>
+
+    <key>StartInterval</key>
+    <integer>600</integer>
+
+    <key>WorkingDirectory</key>
+    <string>/path/to/script/directory</string>
+
+    <key>StandardErrorPath</key>
+    <string>/path/to/script/directory/error.log</string>
+    <key>StandardOutPath</key>
+    <string>/path/to/script/directory/info.log</string>
+</dict>
+</plist>
