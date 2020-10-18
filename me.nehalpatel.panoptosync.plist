@@ -12,9 +12,13 @@
 
     <key>EnvironmentVariables</key>
     <dict>
-        <key>PANOPTOSYNC_CANVAS_USERNAME</key>
+        <key>PANOPTOSYNC_SSO_URL</key>
         <string><![CDATA[]]></string>
-        <key>PANOPTOSYNC_CANVAS_PASSWORD</key>
+        <key>PANOPTOSYNC_SSO_USERNAME</key>
+        <string><![CDATA[]]></string>
+        <key>PANOPTOSYNC_SSO_PASSWORD</key>
+        <key>PANOPTOSYNC_PANOPTO_DOMAIN</key>
+        <string><![CDATA[org.hosted.panopto.com]]></string>
         <string><![CDATA[]]></string>
         <key>PANOPTOSYNC_DOWNLOAD_FOLDER</key>
         <string><![CDATA[/path/to/download/folder/]]></string>
@@ -32,10 +36,6 @@
         <string><![CDATA[]]></string>
         <key>PANOPTOSYNC_CS499_FEED</key>
         <string><![CDATA[]]></string>
-        <key>PANOPTOSYNC_SSO_URL</key>
-        <string><![CDATA[]]></string>
-        <key>PANOPTOSYNC_PANOPTO_DOMAIN</key>
-        <string><![CDATA[org.hosted.panopto.com]]></string>
     </dict>
 
     <key>StartInterval</key>

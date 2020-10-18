@@ -31,5 +31,5 @@ def start_parsing(s):
                 Common.save_crawl_job(crawl_job, video_url, class_name)
                 Common.save_guid(class_name, video_url)
 
-session = Panopto.perform_sso_login(os.environ["PANOPTOSYNC_CANVAS_USERNAME"], os.environ["PANOPTOSYNC_CANVAS_PASSWORD"])
+session = Panopto.perform_sso_login(os.environ["PANOPTOSYNC_SSO_USERNAME"], os.environ["PANOPTOSYNC_SSO_PASSWORD"])
 start_parsing(session)
