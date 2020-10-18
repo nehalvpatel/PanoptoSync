@@ -17,8 +17,8 @@ class Panopto:
         r = s.get(environ["PANOPTOSYNC_SSO_URL"])
         soup = BeautifulSoup(r.text, 'html.parser')
 
-        asdf = soup.find(attrs={"name": "execution"})
-        return asdf["value"]
+        execution_input = soup.find(attrs={"name": "execution"})
+        return execution_input["value"]
 
     @staticmethod
     def perform_sso_login(username, password):
@@ -38,8 +38,8 @@ class Panopto:
         r = s.get(panopto_url)
         soup = BeautifulSoup(r.text, 'html.parser')
 
-        asdf = soup.find(attrs={"name": "panoptoProtectionToken" })
-        return asdf["value"]
+        csrf_input = soup.find(attrs={"name": "panoptoProtectionToken" })
+        return csrf_input["value"]
 
     @staticmethod
     def get_video_audio_streams(stream_urls):
@@ -124,7 +124,7 @@ class Panopto:
         streams = response["Delivery"]["Streams"]
 
         stream_urls = []
-        for asdf in streams:
-            stream_urls.append(asdf["StreamUrl"])
+        for stream in streams:
+            stream_urls.append(stream["StreamUrl"])
 
         return stream_urls

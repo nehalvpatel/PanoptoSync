@@ -46,13 +46,13 @@ class Common:
 
             return [Common.make_crawl_job_object(stream_url_string, class_name, video["title"], filename, auto_start, auto_confirm)]
         elif len(stream_urls) == 2:
-            asdf = Panopto.get_video_audio_streams(stream_urls)
+            av_pair = Panopto.get_video_audio_streams(stream_urls)
             auto_start = "TRUE"
             auto_confirm = "TRUE"
 
             return [
-                Common.make_crawl_job_object(asdf[0], class_name, video["title"] + " (TOMERGE)", video["title"] + "__TOMERGE.mp4", auto_start, auto_confirm),
-                Common.make_crawl_job_object(asdf[1], class_name, video["title"] + " (TOMERGE)", video["title"] + "__TOMERGE.m4a", auto_start, auto_confirm)
+                Common.make_crawl_job_object(av_pair[0], class_name, video["title"] + " (TOMERGE)", video["title"] + "__TOMERGE.mp4", auto_start, auto_confirm),
+                Common.make_crawl_job_object(av_pair[1], class_name, video["title"] + " (TOMERGE)", video["title"] + "__TOMERGE.m4a", auto_start, auto_confirm)
             ]
         else:
             raise Exception("More than 2 stream URLs discovered")
@@ -81,5 +81,5 @@ class Common:
 
     @staticmethod
     def save_crawl_job(crawl_job, video_id, class_name):
-        with open("./Grabber/" + class_name.replace(" ", "") + "_" + str(hash(video_id)) + ".crawljob", "w") as file:
+        with open(environ["PANOPTOSYNC_CRAWLJOB_FOLDER"] + class_name.replace(" ", "") + "_" + str(hash(video_id)) + ".crawljob", "w") as file:
             file.write(json.dumps(crawl_job, sort_keys=True, indent=4))
