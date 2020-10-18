@@ -17,9 +17,9 @@
         <key>PANOPTOSYNC_SSO_USERNAME</key>
         <string><![CDATA[]]></string>
         <key>PANOPTOSYNC_SSO_PASSWORD</key>
+        <string><![CDATA[]]></string>
         <key>PANOPTOSYNC_PANOPTO_DOMAIN</key>
         <string><![CDATA[org.hosted.panopto.com]]></string>
-        <string><![CDATA[]]></string>
         <key>PANOPTOSYNC_DOWNLOAD_FOLDER</key>
         <string><![CDATA[/path/to/download/folder/]]></string>
         <key>PANOPTOSYNC_CRAWLJOB_FOLDER</key>
