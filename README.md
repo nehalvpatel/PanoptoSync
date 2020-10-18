@@ -41,3 +41,11 @@ You will also need to enable the Folder Watch extension within jDownloader. Conf
 * **StartInterval**
   - The time to wait in seconds between script runs.
   - Example: `600` is 10 minutes.
+
+* **StandardErrorPath**
+  - Where you want the error logs to go.
+  - Example: `/path/to/script/directory/error.log`
+
+* **StandardOutPath**
+  - Where you want the info logs to go.
+  - Example: `/path/to/script/directory/info.log`
