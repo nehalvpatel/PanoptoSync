@@ -35,18 +35,18 @@ class Common:
         }
 
     @staticmethod
-    def make_crawl_job(s, video, class_name):
-        stream_urls = Panopto.fetch_stream_urls(s, video["id"])
+    def make_crawl_job(session, video, class_name):
+        stream_urls = Panopto.fetch_stream_urls(session, video["id"])
 
         if len(stream_urls) == 1:
-            stream_url_string = Panopto.get_best_stream_url(stream_urls)
+            stream_url_string = Panopto.get_best_stream_url(session, stream_urls)
             filename = video["title"] + ".mp4"
             auto_start = "TRUE"
             auto_confirm = "TRUE"
 
             return [Common.make_crawl_job_object(stream_url_string, class_name, video["title"], filename, auto_start, auto_confirm)]
         elif len(stream_urls) == 2:
-            av_pair = Panopto.get_video_audio_streams(stream_urls)
+            av_pair = Panopto.get_video_audio_streams(session, stream_urls)
             auto_start = "TRUE"
             auto_confirm = "TRUE"
 

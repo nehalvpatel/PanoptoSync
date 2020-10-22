@@ -13,36 +13,35 @@ class Panopto:
         return parse_qs(parsed.query)['id'][0]
 
     @staticmethod
-    def fetch_execution(s):
-        r = s.get(environ["PANOPTOSYNC_SSO_URL"])
-        soup = BeautifulSoup(r.text, 'html.parser')
+    def fetch_execution(session):
+        sso_response = session.get(environ["PANOPTOSYNC_SSO_URL"])
+        soup = BeautifulSoup(sso_response.text, 'html.parser')
 
         execution_input = soup.find(attrs={"name": "execution"})
         return execution_input["value"]
 
     @staticmethod
     def perform_sso_login(username, password):
-        s = requests.session()
-        execution = Panopto.fetch_execution(s)
-        s.post(environ["PANOPTOSYNC_SSO_URL"], {
+        session = requests.session()
+        session.post(environ["PANOPTOSYNC_SSO_URL"], {
             "username": username,
             "password": password,
-            "execution": execution,
+            "execution": Panopto.fetch_execution(session),
             "_eventId": "submit",
             "geolocation": ""
         })
-        return s
+        return session
 
     @staticmethod
-    def fetch_panopto_csrf(s, panopto_url):
-        r = s.get(panopto_url)
-        soup = BeautifulSoup(r.text, 'html.parser')
+    def fetch_panopto_csrf(session, panopto_url):
+        panopto_response = session.get(panopto_url)
+        soup = BeautifulSoup(panopto_response.text, 'html.parser')
 
         csrf_input = soup.find(attrs={"name": "panoptoProtectionToken" })
         return csrf_input["value"]
 
     @staticmethod
-    def get_video_audio_streams(stream_urls):
+    def get_video_audio_streams(session, stream_urls):
         audio_url = ""
         video_url = ""
 
@@ -55,23 +54,24 @@ class Panopto:
         for playlist in first_feed.playlists:
             if playlist.stream_info.resolution is None:
                 audio_url = playlist.base_uri + playlist.uri
-                video_url = Panopto.get_best_stream_url([second_url])
+                video_url = Panopto.get_best_stream_url(session, [second_url])
                 break
 
         for playlist in second_feed.playlists:
             if playlist.stream_info.resolution is None:
                 audio_url = playlist.base_uri + playlist.uri
-                video_url = Panopto.get_best_stream_url([first_url])
+                video_url = Panopto.get_best_stream_url(session, [first_url])
                 break
 
         return (video_url, audio_url)
 
     @staticmethod
-    def get_best_stream_url(stream_urls):
+    def get_best_stream_url(session, stream_urls):
         if (len(stream_urls) == 0):
             return ""
         elif (len(stream_urls) == 1):
-            playlist = m3u8.load(stream_urls[0])
+            m3u8_response = session.get(stream_urls[0])
+            playlist = m3u8.loads(m3u8_response.text, stream_urls[0])
 
             if not playlist.is_variant:
                 return stream_urls[0]
@@ -87,9 +87,9 @@ class Panopto:
                 return max_res_url
 
     @staticmethod
-    def fetch_stream_urls(s, viewer_url):
+    def fetch_stream_urls(session, viewer_url):
         delivery_id = Panopto.parse_delivery_id(viewer_url)
-        csrf_token = Panopto.fetch_panopto_csrf(s, "https://" + environ["PANOPTOSYNC_PANOPTO_DOMAIN"] + "/Panopto/Pages/Viewer.aspx?id=" + delivery_id)
+        csrf_token = Panopto.fetch_panopto_csrf(session, "https://" + environ["PANOPTOSYNC_PANOPTO_DOMAIN"] + "/Panopto/Pages/Viewer.aspx?id=" + delivery_id)
 
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -119,7 +119,7 @@ class Panopto:
             'responseType': 'json'
         }
 
-        response = s.post('https://' + environ["PANOPTOSYNC_PANOPTO_DOMAIN"] + '/Panopto/Pages/Viewer/DeliveryInfo.aspx', headers=headers, data=data).json()
+        response = session.post('https://' + environ["PANOPTOSYNC_PANOPTO_DOMAIN"] + '/Panopto/Pages/Viewer/DeliveryInfo.aspx', headers=headers, data=data).json()
 
         streams = response["Delivery"]["Streams"]
 

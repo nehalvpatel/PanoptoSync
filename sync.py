@@ -9,7 +9,7 @@ from CS488 import CS488
 from CS490 import CS490
 from CS499 import CS499
 
-def start_parsing(s):
+def start_parsing(session):
     classes = [
         CS390(),
         CS453(),
@@ -27,7 +27,7 @@ def start_parsing(s):
 
             if video_url not in existing_guids:
                 print(datetime.now().strftime('%Y-%m-%d %H:%M:%S') + ": Adding new video: [" + class_name + "] " + video["title"])
-                crawl_job = Common.make_crawl_job(s, video, class_name)
+                crawl_job = Common.make_crawl_job(session, video, class_name)
                 Common.save_crawl_job(crawl_job, video_url, class_name)
                 Common.save_guid(class_name, video_url)
 
