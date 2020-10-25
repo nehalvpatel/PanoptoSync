@@ -1,6 +1,6 @@
 import feedparser
 from os import environ
-from Common import Common
+import Crowbars
 
 class CS490:
 
@@ -21,8 +21,8 @@ class CS490:
             counter = counter + 1
 
             title = video["title"]
-            title = Common.remove_prefix(title, "CS 490: ")
-            title = Common.remove_prefix(title, "CS490")
+            title = Crowbars.remove_prefix(title, "CS 490: ")
+            title = Crowbars.remove_prefix(title, "CS490")
             title = title.strip()
 
             self.videos[i]["title"] = str(counter) + " - " + title

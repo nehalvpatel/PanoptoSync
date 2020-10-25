@@ -1,6 +1,6 @@
 import feedparser
 from os import environ
-from Common import Common
+import Crowbars
 
 class CS499:
 
@@ -15,7 +15,7 @@ class CS499:
             counter = counter + 1
 
             title = entry["title"]
-            title = Common.remove_prefix(title, "CS 499: ")
+            title = Crowbars.remove_prefix(title, "CS 499: ")
             title = title.replace("CS 499 ", "")
             title = title.replace("CS 499", "")
             title = title.strip()

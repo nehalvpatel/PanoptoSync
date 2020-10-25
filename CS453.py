@@ -1,6 +1,6 @@
 import feedparser
 from os import environ
-from Common import Common
+import Crowbars
 
 class CS453:
 
@@ -15,7 +15,7 @@ class CS453:
             counter = counter + 1
 
             title = entry["title"]
-            title = Common.remove_prefix(title, "CS 453: ")
+            title = Crowbars.remove_prefix(title, "CS 453: ")
             title = title.strip()
 
             feed_data.entries[i]["title"] = str(counter) + " - " + title
